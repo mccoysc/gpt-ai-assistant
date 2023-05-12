@@ -32,7 +32,7 @@ const exec = (context) => check(context) && (
     var answer;
     try {
       const q=trimmedText;
-      answer = await fetchAnswer(trimmedText).answer;
+      answer = (await fetchAnswer(trimmedText)).answer;
       trimmedText = ``;
       console.log("answer:\n",answer);
       answer.forEach((e,i) => {
