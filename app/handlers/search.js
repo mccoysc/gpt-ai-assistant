@@ -28,22 +28,27 @@ const exec = (context) => check(context) && (
       trimmedText=context.trimmedText.replace(COMMAND_BOT_SEARCH.text,"");
     }
     trimmedText=trimmedText.trim();
-    const prompt = getPrompt(context.userId);
-    if (!config.SERPAPI_API_KEY) context.pushText(t('__ERROR_MISSING_ENV')('SERPAPI_API_KEY'));
+    const prompt = getPrompt("do-not-need-context");
     try {
+      const q=trimmedText;
       const { answer } = await fetchAnswer(trimmedText);
-      trimmedText = `${t('__COMPLETION_SEARCH')(answer || t('__COMPLETION_SEARCH_NOT_FOUND'), trimmedText)}`;
+      trimmedText = ``;
+      answer.array.forEach((e,i) => {
+        trimmedText=trimmedText+`${i}、${e.snippet}\n`;
+      });
+      trimmedText=trimmedText+`\n\n以上每段文字的开头数字是该文字的编号。请根据与"${q}关联度的顺序对以上${answer.length}段文字做降序排列，然后告诉我排序后的文字编号（无需文字本身，只要编号）。请不要有任何前置或者后置说明。"`;
     } catch (err) {
       return context.pushError(err);
     }
     prompt.write(ROLE_HUMAN, `${trimmedText}`).write(ROLE_AI);
     try {
-      const { text, isFinishReasonStop } = await generateCompletion({ prompt });
+      var { text } = await generateCompletion({ prompt });
+      text="\n\n相关链接：\n";
+      answer.forEach(function(e,i){
+        text=text+i+"  "+e.link+"\n";
+      })
       prompt.patch(text);
-      setPrompt(context.userId, prompt);
-      updateHistory(context.id, (history) => history.write(config.BOT_NAME, text));
-      const actions = isFinishReasonStop ? [] : [COMMAND_BOT_CONTINUE];
-      context.pushText(text, actions);
+      context.pushText(text, []);
     } catch (err) {
       context.pushError(err);
     }
