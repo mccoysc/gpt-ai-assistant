@@ -66,6 +66,10 @@ app.get('/info', async (req, res) => {
 });
 
 app.post(config.APP_WEBHOOK_PATH, validateLineSignature, async (req, res) => {
+  if(!req.body?.events){
+    res.statusCode=400;
+    return res.end("invalid body");
+  }
   try {
     await storage.initialize();
     await handleEvents(req.body.events);
