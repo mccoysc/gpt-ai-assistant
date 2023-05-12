@@ -10,7 +10,6 @@ const config = Object.freeze({
   APP_ENV: env.NODE_ENV || 'production',
   APP_DEBUG: env.APP_DEBUG === 'true' || false,
   APP_URL: env.APP_URL || null,
-  APP_PORT: env.PORT || env.APP_PORT || null,
   APP_LANG: env.APP_LANG || 'zh_CN',
   APP_WEBHOOK_PATH: env.APP_WEBHOOK_PATH || '/webhook',
   APP_API_TIMEOUT: env.APP_API_TIMEOUT || 9000,
