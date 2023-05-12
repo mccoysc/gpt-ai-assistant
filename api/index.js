@@ -47,6 +47,10 @@ const app = express();
 
 app.use(express.json({
   verify: (req, res, buf) => {
+    if(!buf?.length){
+      res.statusCode=400;
+      return res.end("invalid body");
+    }
     req.rawBody = buf.toString();
   },
 }));
