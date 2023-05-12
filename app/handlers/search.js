@@ -29,9 +29,10 @@ const exec = (context) => check(context) && (
     }
     trimmedText=trimmedText.trim();
     const prompt = getPrompt("do-not-need-context");
+    var answer;
     try {
       const q=trimmedText;
-      const { answer } = await fetchAnswer(trimmedText);
+      answer = await fetchAnswer(trimmedText).answer;
       trimmedText = ``;
       console.log("answer:\n",answer);
       answer.forEach((e,i) => {
