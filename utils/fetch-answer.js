@@ -14,7 +14,7 @@ class OrganicResult {
 const fetchAnswer = async (q) => {
   if (config.APP_ENV !== 'production' || !config.SERPAPI_API_KEY) return new OrganicResult();
   const res = await search({ q });
-  return new OrganicResult({ answer:JSON.stringify(res.data.organic_results)});
+  return { answer:res.data.organic_results}
 };
 
 export default fetchAnswer;
