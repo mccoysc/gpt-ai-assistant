@@ -98,8 +98,8 @@ const en = {
   __COMPLETION_DEFAULT_HUMAN_PROMPT: (name) => (name ? `I am ${name}` : 'Hello'),
   __COMPLETION_DEFAULT_AI_PROMPT: (name) => (name ? `I am ${name}` : 'Hello'),
   __COMPLETION_DEFAULT_AI_TONE: (tone) => (tone ? `以${tone}的語氣回應我：` : ''), // TODO
-  __COMPLETION_SEARCH: (a, q) => `根據「${a}」查詢結果，回答「${q}」問題`, // TODO
-  __COMPLETION_SEARCH_NOT_FOUND: '查無資料', // TODO
+  __COMPLETION_SEARCH: (a, q) => `以下是网络查询结果，请根据这些结果做总结，并根据与关键词"${q}的相关度降序排列。应答里不要有前置或者后置说明，也不要有任何解释：\n\n${a}"`,
+  __COMPLETION_SEARCH_NOT_FOUND: 'not found', // TODO
   __COMPLETION_QUOTATION_MARK_OPENING: '"',
   __COMPLETION_QUOTATION_MARK_CLOSING: '"',
   __ERROR_ECONNABORTED: 'Timed out',

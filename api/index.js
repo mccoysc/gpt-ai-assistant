@@ -6,7 +6,6 @@ import storage from '../storage/index.js';
 import { fetchVersion, getVersion } from '../utils/index.js';
 import * as mqtt from "mqtt"
 import * as http from "http"
-import * as fs from "fs"
 
 async function* streamAsyncIterable(stream) {
   if (!stream.getReader) {

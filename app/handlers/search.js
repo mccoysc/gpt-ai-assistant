@@ -19,7 +19,15 @@ const check = (context) => context.hasCommand(COMMAND_BOT_SEARCH);
  */
 const exec = (context) => check(context) && (
   async () => {
-    let trimmedText = context.trimmedText.replace(COMMAND_BOT_SEARCH.text, '');
+    var trimmedText="";
+    if(context.trimmedText.startsWith(COMMAND_BOT_SEARCH.aliases[0])){
+      trimmedText=context.trimmedText.replace(COMMAND_BOT_SEARCH.aliases[0],"")
+    }else if(context.trimmedText.startsWith(COMMAND_BOT_SEARCH.aliases[1])){
+      trimmedText=context.trimmedText.replace(COMMAND_BOT_SEARCH.aliases[1],"");
+    }else if(context.trimmedText.startsWith(COMMAND_BOT_SEARCH.text)){
+      trimmedText=context.trimmedText.replace(COMMAND_BOT_SEARCH.text,"");
+    }
+    trimmedText=trimmedText.trim();
     const prompt = getPrompt(context.userId);
     if (!config.SERPAPI_API_KEY) context.pushText(t('__ERROR_MISSING_ENV')('SERPAPI_API_KEY'));
     try {

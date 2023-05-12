@@ -14,13 +14,7 @@ class OrganicResult {
 const fetchAnswer = async (q) => {
   if (config.APP_ENV !== 'production' || !config.SERPAPI_API_KEY) return new OrganicResult();
   const res = await search({ q });
-  const { answer_box: answerBox, knowledge_graph: knowledgeGraph, organic_results: organicResults } = res.data;
-  let answer = organicResults[0].snippet;
-  if (answerBox?.answer) answer = answerBox.answer;
-  if (answerBox?.result) answer = answerBox.result;
-  if (answerBox?.snippet) answer = answerBox.snippet;
-  if (knowledgeGraph?.description) answer = `${knowledgeGraph.title} - ${knowledgeGraph.description}`;
-  return new OrganicResult({ answer });
+  return new OrganicResult({ answer:JSON.stringify(res.data.organic_results)});
 };
 
 export default fetchAnswer;
