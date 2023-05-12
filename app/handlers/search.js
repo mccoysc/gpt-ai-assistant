@@ -33,7 +33,7 @@ const exec = (context) => check(context) && (
       const q=trimmedText;
       const { answer } = await fetchAnswer(trimmedText);
       trimmedText = ``;
-      answer.array.forEach((e,i) => {
+      answer.forEach((e,i) => {
         trimmedText=trimmedText+`${i}、${e.snippet}\n`;
       });
       trimmedText=trimmedText+`\n\n以上每段文字的开头数字是该文字的编号。请根据与"${q}关联度的顺序对以上${answer.length}段文字做降序排列，然后告诉我排序后的文字编号（无需文字本身，只要编号）。请不要有任何前置或者后置说明。"`;
